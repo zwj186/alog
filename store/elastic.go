@@ -2,8 +2,8 @@ package store
 
 import (
 	"text/template"
-	"alog/log"
 
+	"github.com/zwj186/alog/log"
 	"gopkg.in/olivere/elastic.v3"
 )
 

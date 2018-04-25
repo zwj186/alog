@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"alog/log"
+	"github.com/zwj186/alog/log"
 )
 
 func TestElasticStore(t *testing.T) {

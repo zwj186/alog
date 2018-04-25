@@ -2,6 +2,7 @@ package manage
 
 import (
 	"fmt"
+	"math"
 	"os"
 	"runtime"
 	"strings"
@@ -9,11 +10,11 @@ import (
 	"sync/atomic"
 	"text/template"
 	"time"
-	"alog/buffer"
-	"alog/log"
-	"alog/store"
-	"alog/utils"
-	"math"
+
+	"github.com/zwj186/alog/buffer"
+	"github.com/zwj186/alog/log"
+	"github.com/zwj186/alog/store"
+	"github.com/zwj186/alog/utils"
 )
 
 // NewLogManage 创建新的LogManage实例

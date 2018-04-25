@@ -3,8 +3,8 @@ package buffer
 import (
 	"encoding/json"
 	"fmt"
-	"alog/log"
 
+	"github.com/zwj186/alog/log"
 	"gopkg.in/redis.v3"
 )
 

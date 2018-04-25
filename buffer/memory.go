@@ -3,7 +3,8 @@ package buffer
 import (
 	"container/list"
 	"sync"
-	"alog/log"
+
+	"github.com/zwj186/alog/log"
 )
 
 // NewMemoryBuffer 创建新的Memory实例

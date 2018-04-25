@@ -1,6 +1,6 @@
 # ALog
 
-> 基于antlinker/alog修改的异步日志包. 支持高度灵活yaml/json配置、支持内存缓存和redis缓存，支持命令行、文件、mongo和elastic输出日志数据.  
+> 基于antlinker/alog修改的异步日志包.高度灵活yaml/json配置、支持内存缓存和redis缓存，支持命令行、文件、mongo和elastic输出日志数据.  
 > 本日志库的特点: 可靠、稳定、简单、高效.  
 > 原始源地址 [https://github.com/antlinker/alog](https://github.com/antlinker/alog)
 

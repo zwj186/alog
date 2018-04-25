@@ -3,7 +3,8 @@ package store
 import (
 	"testing"
 	"time"
-	"alog/log"
+
+	"github.com/zwj186/alog/log"
 )
 
 func TestFileStore(t *testing.T) {

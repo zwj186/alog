@@ -1,11 +1,12 @@
 package main
 
 import (
-	"time"
-	"alog"
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
+
+	"github.com/zwj186/alog"
 )
 
 func sysSignalHandle() {

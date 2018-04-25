@@ -3,9 +3,10 @@ package alog
 import (
 	"fmt"
 	"os"
-	"alog/log"
-	"alog/manage"
-	"alog/utils"
+
+	"github.com/zwj186/alog/log"
+	"github.com/zwj186/alog/manage"
+	"github.com/zwj186/alog/utils"
 )
 
 // ALog 提供ALog日志模块的输出管理

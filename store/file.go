@@ -1,13 +1,14 @@
 package store
 
 import (
-	"alog/log"
 	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
 	"text/template"
 	"time"
+
+	"github.com/zwj186/alog/log"
 )
 
 type _FileConfig struct {

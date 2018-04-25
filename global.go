@@ -1,6 +1,6 @@
 package alog
 
-import "alog/log"
+import "github.com/zwj186/alog/log"
 
 var (
 	// 提供全局的ALog

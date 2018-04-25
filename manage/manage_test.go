@@ -2,7 +2,8 @@ package manage
 
 import (
 	"testing"
-	"alog/log"
+
+	"github.com/zwj186/alog/log"
 )
 
 func TestConsole(t *testing.T) {
