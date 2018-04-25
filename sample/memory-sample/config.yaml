@@ -1,0 +1,19 @@
+{
+	global: {
+		print: 0, rule: 1, showfile: 0, caller: 5, interval: 1, target: "file_global",
+		buffer: {engine: 1}
+	},
+	store: {
+		file: {
+			file_global: {
+				filepath: "logs",
+				filename: "{{.Year}}{{.Month}}{{.Day}}.log",
+				filesize: 20480,
+				item: {
+					tmpl: '{{.Time}} {{.Level}} {{.Tag}} "{{.FileName}} {{.FileFuncName}} {{.FileLine}}" {{.Message}}',
+					time: "{{.Year}}-{{.Month}}-{{.Day}} {{.Hour}}:{{.Minute}}:{{.Second}}.{{.MilliSecond}}"
+				}
+			}
+		}
+	}
+}
