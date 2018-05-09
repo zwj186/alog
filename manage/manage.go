@@ -64,6 +64,7 @@ func NewLogManage(config *log.LogConfig, cfgFile *log.ConfigFile) log.LogManage 
 	}
 
 	manage.logDay = getLogDayTime()
+	manage.gopath = os.Getenv("GOPATH")
 	return manage
 }
 
@@ -153,7 +154,8 @@ func (lm *_LogManage) file() log.LogFile {
 		logFile.FuncName = "???"
 		return logFile
 	}
-	logFile.Name = file
+	logFile.FullName = file
+	logFile.RelativeName = file[len(lm.gopath+"/src/"):]
 	logFile.ShortName = utils.SubstrByStartAfter(file, "/")
 	logFile.Line = line
 	logFile.FuncName = utils.SubstrByStartAfter(runtime.FuncForPC(pc).Name(), "/")

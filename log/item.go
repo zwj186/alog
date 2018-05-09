@@ -23,7 +23,10 @@ func (lt *LogItem) ToMap() map[string]interface{} {
 		"Tag":     lt.Tag,
 		"Message": lt.Message,
 	}
-	if v := lt.File.Name; v != "" {
+	if v := lt.File.FullName; v != "" {
+		data["FileName"] = v
+	}
+	if v := lt.File.RelativeName; v != "" {
 		data["FileName"] = v
 	}
 	if v := lt.File.ShortName; v != "" {
@@ -43,8 +46,9 @@ type LogTag string
 
 // LogFile 发生日志的文件
 type LogFile struct {
-	Name      string `json:",omitempty"` // Name 文件名
-	ShortName string `json:",omitempty"` // ShortName 短文件名
-	FuncName  string `json:",omitempty"` // FuncName 函数名
-	Line      int    `json:",omitempty"` // Line 文件行
+	FullName     string `json:",omitempty"` // FullName 全文件名
+	RelativeName string `json:",omitempty"` // RelativeName 相对文件名
+	ShortName    string `json:",omitempty"` // ShortName 短文件名
+	FuncName     string `json:",omitempty"` // FuncName 函数名
+	Line         int    `json:",omitempty"` // Line 文件行
 }

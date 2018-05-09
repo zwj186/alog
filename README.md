@@ -32,8 +32,9 @@ $ go get github.com/zwj186/alog
 			# Level 级别
 			# Tag 标签
 			# Message 日志明细
-			# FileName 文件名
-			# ShortName 短文件名
+		    # FullName 全文件名
+		    # RelativeName 相对(GOPATH)文件名
+		    # ShortName 短文件名
 			# FileFuncName 函数名
 			# FileLine 文件行
 			tmpl: "[{{.Time}}｜{{.Level}}｜{{.Tag}}]{{.ShortName}}:{{.FileLine}}:{{.Message}}",
