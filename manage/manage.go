@@ -81,6 +81,7 @@ type _LogManage struct {
 	Buffer     log.LogBuffer
 	Store      map[string]log.LogStore
 	Tafunc     *time.Timer
+	gopath     string
 }
 
 func (lm *_LogManage) Write(level log.LogLevel, tag log.LogTag, v ...interface{}) {
@@ -150,7 +151,8 @@ func (lm *_LogManage) file() log.LogFile {
 	var logFile log.LogFile
 	pc, file, line, ok := runtime.Caller(lm.Config.Global.FileCaller)
 	if !ok {
-		logFile.Name = "???"
+		logFile.FullName = "???"
+		logFile.RelativeName = "???"
 		logFile.FuncName = "???"
 		return logFile
 	}
