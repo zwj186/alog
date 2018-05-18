@@ -1,5 +1,9 @@
 # HISTORY
 
+## V1.2.2
+  by zwj186
+* 修改开发工具多个GOPATH配置时RelativeName处理bug
+
 ## V1.2.1
   by zwj186
 * 增加日志相对(GOPATH)文件名配置支持,原FileName改为FullName
