@@ -65,6 +65,14 @@ func NewLogManage(config *log.LogConfig, cfgFile *log.ConfigFile) log.LogManage 
 
 	manage.logDay = getLogDayTime()
 	manage.gopath = os.Getenv("GOPATH")
+	idx1 := strings.LastIndex(manage.gopath, ";")
+	if idx1 > 0 {
+		manage.gopath = string([]byte(manage.gopath)[idx1:])
+	}
+	idx2 := strings.LastIndex(manage.gopath, ":")
+	if idx2 > 0 {
+		manage.gopath = string([]byte(manage.gopath)[idx2:])
+	}
 	return manage
 }
 
