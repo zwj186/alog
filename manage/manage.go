@@ -64,14 +64,11 @@ func NewLogManage(config *log.LogConfig, cfgFile *log.ConfigFile) log.LogManage 
 	}
 
 	manage.logDay = getLogDayTime()
-	manage.gopath = os.Getenv("GOPATH")
-	idx1 := strings.LastIndex(manage.gopath, ";")
-	if idx1 > 0 {
-		manage.gopath = string([]byte(manage.gopath)[idx1:])
-	}
-	idx2 := strings.LastIndex(manage.gopath, ":")
-	if idx2 > 0 {
-		manage.gopath = string([]byte(manage.gopath)[idx2:])
+	gopath := os.Getenv("GOPATH")
+	if runtime.GOOS == "windows" {
+		manage.pathLen = len(utils.SubstrByStartAfter(gopath, ";") + "/src/")
+	} else {
+		manage.pathLen = len(utils.SubstrByStartAfter(gopath, ":") + "/src/")
 	}
 	return manage
 }
@@ -89,7 +86,7 @@ type _LogManage struct {
 	Buffer     log.LogBuffer
 	Store      map[string]log.LogStore
 	Tafunc     *time.Timer
-	gopath     string
+	pathLen    int
 }
 
 func (lm *_LogManage) Write(level log.LogLevel, tag log.LogTag, v ...interface{}) {
@@ -165,7 +162,7 @@ func (lm *_LogManage) file() log.LogFile {
 		return logFile
 	}
 	logFile.FullName = file
-	logFile.RelativeName = file[len(lm.gopath+"/src/"):]
+	logFile.RelativeName = file[lm.pathLen:]
 	logFile.ShortName = utils.SubstrByStartAfter(file, "/")
 	logFile.Line = line
 	logFile.FuncName = utils.SubstrByStartAfter(runtime.FuncForPC(pc).Name(), "/")
