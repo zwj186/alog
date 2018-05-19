@@ -14,9 +14,9 @@ func SubstrByStartAfter(str string, start string) string {
 	return str
 }
 
-// SubStrByStartBefore 字符串截取
+// SubstrByStartBefore 字符串截取
 // 从尾部开始查找，返回从头到查找位置
-func SubStrByStartBefore(str string, start string) string {
+func SubstrByStartBefore(str string, start string) string {
 	pos := strings.LastIndex(str, start)
 
 	if pos > -1 {
