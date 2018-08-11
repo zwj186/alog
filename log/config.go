@@ -154,6 +154,16 @@ type FileConfig struct {
 	// 默认值为logs
 	FilePath string `json:"filepath" yaml:"filepath"`
 
+	// ItemPathTmpl 子路径格式模板
+	// 模板字段说明：
+	// Year 年份
+	// Month 月份
+	// Day 天数
+	// Level 日志级别
+	// Tag 标签
+	// 默认值为{{.Year}}-{{.Month}}-{{.Day}}
+	ChildPathTmpl string `json:"childpath" yaml:"childpath"`
+
 	// FileNameTmpl 文件名格式模板
 	// 模板字段说明：
 	// Year 年份

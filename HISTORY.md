@@ -1,5 +1,9 @@
 # HISTORY
 
+## V1.2.3
+  by zwj186
+* 文件存储增加子路径格式模板支持
+
 ## V1.2.2
   by zwj186
 * 修改开发工具多个GOPATH配置时RelativeName处理bug

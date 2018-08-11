@@ -16,6 +16,7 @@ type _FileConfig struct {
 	Path       string
 	RetainDay  int
 	GCInterval time.Duration
+	ChildTmpl  *template.Template
 	NameTmpl   *template.Template
 	TimeTmpl   *template.Template
 	MsgTmpl    *template.Template
@@ -24,12 +25,13 @@ type _FileConfig struct {
 // NewFileStore 创建新的FileStore实例
 func NewFileStore(config log.FileConfig) log.LogStore {
 	var (
-		size     = config.FileSize
-		fpath    = config.FilePath
-		filename = config.FileNameTmpl
-		timeTmpl = config.Item.TimeTmpl
-		msgTmpl  = config.Item.Tmpl
-		interval = config.GCInterval
+		size      = config.FileSize
+		fpath     = config.FilePath
+		childpath = config.ChildPathTmpl
+		filename  = config.FileNameTmpl
+		timeTmpl  = config.Item.TimeTmpl
+		msgTmpl   = config.Item.Tmpl
+		interval  = config.GCInterval
 	)
 	if size == 0 {
 		size = log.DefaultFileSize
@@ -49,11 +51,9 @@ func NewFileStore(config log.FileConfig) log.LogStore {
 	if msgTmpl == "" {
 		msgTmpl = log.DefaultMsgTmpl
 	}
-
 	if interval == 0 {
 		interval = log.DefaultFileGCInterval
 	}
-
 	if l := len(fpath); l > 0 && fpath[l-1] == '/' {
 		fpath = fpath[:l-1]
 	}
@@ -61,6 +61,7 @@ func NewFileStore(config log.FileConfig) log.LogStore {
 	cfg := &_FileConfig{
 		Size:       size * 1024,
 		Path:       fpath,
+		ChildTmpl:  template.Must(template.New("").Parse(childpath)),
 		NameTmpl:   template.Must(template.New("").Parse(filename)),
 		TimeTmpl:   template.Must(template.New("").Parse(timeTmpl)),
 		MsgTmpl:    template.Must(template.New("").Parse(msgTmpl)),
@@ -70,7 +71,7 @@ func NewFileStore(config log.FileConfig) log.LogStore {
 	fs := &FileStore{config: cfg, fileMap: make(map[string]*FileUnit)}
 
 	// 创建日志目录
-	if err := fs.createFolder(); err != nil {
+	if err := fs.createFolder(fs.config.Path); err != nil {
 		panic("创建目录发生错误：" + err.Error())
 	}
 
@@ -120,8 +121,8 @@ func (fs *FileStore) gc() {
 	time.AfterFunc(fs.config.GCInterval, fs.gc)
 }
 
-func (fs *FileStore) createFolder() error {
-	folder := fs.config.Path
+func (fs *FileStore) createFolder(folder string) error {
+	//folder := fs.config.Path
 	_, err := os.Stat(folder)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -162,9 +163,13 @@ func (fs *FileStore) rename(fileName string) (err error) {
 }
 
 func (fs *FileStore) getFile(item *log.LogItem) (fileUnit *FileUnit, err error) {
+	childPath := log.ParseName(fs.config.ChildTmpl, item)
 	fileName := log.ParseName(fs.config.NameTmpl, item)
 	if fileName == "" {
 		fileName = fmt.Sprintf("unknown.%s.log", item.Time.Format("20060102"))
+	}
+	if len(childPath) > 0 {
+		fileName = childPath + "/" + fileName
 	}
 	fileUnit, ok := fs.fileMap[fileName]
 	if ok {
@@ -189,6 +194,9 @@ func (fs *FileStore) getFile(item *log.LogItem) (fileUnit *FileUnit, err error) 
 	}
 
 	if fileUnit.file == nil {
+		if len(childPath) > 0 {
+			fs.createFolder(fs.config.Path + "/" + childPath)
+		}
 		file, err := os.OpenFile(fmt.Sprintf("%s/%s", fs.config.Path, fileUnit.fileName), os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0660)
 		if err != nil {
 			return fileUnit, err

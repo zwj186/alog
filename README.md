@@ -151,6 +151,14 @@ $ go get github.com/zwj186/alog
 			file_global: {
 				# 文件存储路径
 				filepath: "logs",
+				# 子路径格式模板(不设置子路径格式模板,默认为无子路径)
+				# 模板字段说明：
+				# Year 年份
+				# Month 月份
+				# Day 天数
+				# Level 日志级别
+				# Tag 标签
+				childpath: "{{.Year}}-{{.Month}}-{{.Day}}",
 				# 文件名格式模板
 				# 模板字段说明：
 				# Year 年份

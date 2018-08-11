@@ -1,5 +1,5 @@
 # TODO
 
-## V1.2.2
+## V1.2.3
 
-* 修改开发工具多个GOPATH配置时RelativeName处理bug
+* 文件存储增加子路径格式模板支持
