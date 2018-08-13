@@ -39,7 +39,8 @@ func NewALog(configs ...string) *ALog {
 			panic(err)
 		}
 	} else if gLog := GALog; gLog != nil {
-		config = &(*(gLog.GetConfig()))
+		pcfg := *(gLog.GetConfig())
+		config = &(pcfg)
 	}
 
 	return &ALog{
