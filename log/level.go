@@ -15,15 +15,15 @@ func (l LogLevel) ToString() string {
 	var v string
 	switch l {
 	case DEBUG:
-		v = "Debug"
+		v = "D" //"Debug"
 	case INFO:
-		v = "Info"
+		v = "I" //"Info"
 	case WARN:
-		v = "Warn"
+		v = "W" //"Warn"
 	case ERROR:
-		v = "Error"
+		v = "E" //"Error"
 	case FATAL:
-		v = "Fatal"
+		v = "F" //"Fatal"
 	}
 	return v
 }
