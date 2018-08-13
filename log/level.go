@@ -15,6 +15,23 @@ func (l LogLevel) ToString() string {
 	var v string
 	switch l {
 	case DEBUG:
+		v = "Debug"
+	case INFO:
+		v = "Info"
+	case WARN:
+		v = "Warn"
+	case ERROR:
+		v = "Error"
+	case FATAL:
+		v = "Fatal"
+	}
+	return v
+}
+
+func (l LogLevel) ToSingleString() string {
+	var v string
+	switch l {
+	case DEBUG:
 		v = "D" //"Debug"
 	case INFO:
 		v = "I" //"Info"

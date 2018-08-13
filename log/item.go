@@ -20,6 +20,9 @@ func (lt *LogItem) ToMap() map[string]interface{} {
 		"ID":      lt.ID,
 		"Time":    lt.Time,
 		"Level":   lt.Level.ToString(),
+		"level":   lt.Level.ToLowerString(),
+		"LEVEL":   lt.Level.ToUpperString(),
+		"L":       lt.Level.ToSingleString(),
 		"Tag":     lt.Tag,
 		"Message": lt.Message,
 	}

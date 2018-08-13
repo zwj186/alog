@@ -54,6 +54,7 @@ func ParseName(tmpl interface{}, data *LogItem) string {
 	fData["Level"] = data.Level.ToString()
 	fData["level"] = data.Level.ToLowerString()
 	fData["LEVEL"] = data.Level.ToUpperString()
+	fData["L"] = data.Level.ToSingleString()
 	fData["Tag"] = data.Tag
 	buf, err := utils.NewParseTmpl(tmpl).Parse(fData)
 	if err != nil {
@@ -75,6 +76,7 @@ func ParseLogItemToBuffer(tmpl interface{}, timeTmpl interface{}, data *LogItem)
 		"Level":        data.Level.ToString(),
 		"level":        data.Level.ToLowerString(),
 		"LEVEL":        data.Level.ToUpperString(),
+		"L":            data.Level.ToSingleString(),
 		"Tag":          data.Tag,
 		"Message":      data.Message,
 		"FullName":     data.File.FullName,
