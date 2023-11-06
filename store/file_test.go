@@ -20,7 +20,7 @@ func TestFileStore(t *testing.T) {
 		item.Level = log.DEBUG
 		item.Tag = log.DefaultTag
 		item.Message = "............."
-		item.File.Name = "file_test.go"
+		item.File.RelativeName = "file_test.go"
 		item.File.Line = 22
 		err = store.Store(&item)
 		if err != nil {

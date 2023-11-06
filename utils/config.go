@@ -38,10 +38,10 @@ func (c *config) Read(v interface{}) error {
 		return err
 	}
 	switch strings.ToLower(filepath.Ext(c.file)) {
-	case ".yaml":
-		return yaml.Unmarshal(buf.Bytes(), v)
 	case ".json":
 		return json.Unmarshal(buf.Bytes(), v)
+	default:
+		return yaml.Unmarshal(buf.Bytes(), v)
 	}
 	return nil
 }
