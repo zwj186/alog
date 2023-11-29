@@ -2,6 +2,7 @@ package manage
 
 import (
 	"fmt"
+	"go/build"
 	"math"
 	"os"
 	"runtime"
@@ -58,18 +59,13 @@ func NewLogManage(config *log.LogConfig, cfgFile *log.ConfigFile) log.LogManage 
 		}
 	}
 	manage.Store = manageStore
+	manage.logDay = getLogDayTime()
+	manage.pathLen = len(build.Default.GOPATH + "/src/")
 
 	if config.Global.IsEnabled == 1 {
 		go manage.execStore()
 	}
 
-	manage.logDay = getLogDayTime()
-	gopath := os.Getenv("GOPATH")
-	if runtime.GOOS == "windows" {
-		manage.pathLen = len(utils.SubstrByStartAfter(gopath, ";") + "/src/")
-	} else {
-		manage.pathLen = len(utils.SubstrByStartAfter(gopath, ":") + "/src/")
-	}
 	return manage
 }
 
@@ -162,8 +158,12 @@ func (lm *_LogManage) file() log.LogFile {
 		return logFile
 	}
 	logFile.FullName = file
-	logFile.RelativeName = file[lm.pathLen:]
 	logFile.ShortName = utils.SubstrByStartAfter(file, "/")
+	if lm.pathLen > 0 {
+		logFile.RelativeName = file[lm.pathLen:]
+	} else {
+		logFile.RelativeName = logFile.ShortName
+	}
 	logFile.Line = line
 	logFile.FuncName = utils.SubstrByStartAfter(runtime.FuncForPC(pc).Name(), "/")
 	return logFile
